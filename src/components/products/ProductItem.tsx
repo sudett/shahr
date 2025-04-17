@@ -1,11 +1,20 @@
+"use client";
+
+import { addProduct } from "@/store/productSlice";
+import { useAppDispatch } from "@/store/store";
 import { Product } from "@/types/product.types";
 import Image from "next/image";
 import React from "react";
 import { IoStarSharp } from "react-icons/io5";
 
 function ProductItem({ product }: { product: Product }) {
+  const dispatch = useAppDispatch();
+
   return (
-    <li key={product.id} className="flex gap-8 h-48">
+    <li
+      onClick={() => dispatch(addProduct(product))}
+      className="flex gap-8 h-48 cursor-pointer"
+    >
       <Image
         src={product.image}
         width={100}
