@@ -1,12 +1,13 @@
-import Link from "next/link";
+import ProductList from "@/components/products/ProductList";
+import SelectedProducts from "@/components/products/SelectedProducts";
+import UsersList from "@/components/users/UsersList";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <Link
-      href="/products"
-      className="border border-slate-700 text-slate-700 px-2 py-1 rounded hover:bg-slate-700 hover:text-slate-300 focus-within:bg-slate-700 outline-none transition"
-    >
-      Check Products
-    </Link>
+    <main className="max-w-3xl w-full mx-auto grid grid-cols-[minmax(600px,_1fr)_100px_200px] gap-4">
+      <ProductList />
+      <UsersList />
+      <SelectedProducts />
+    </main>
   );
 }
