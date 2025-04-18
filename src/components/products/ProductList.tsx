@@ -1,17 +1,28 @@
-import { getProducts } from "@/services/productService";
+"use client";
+
 import { Product } from "@/types/product.types";
 import ProductItem from "./ProductItem";
+import SearchBox from "../ui/SearchBox";
+import { useSearch } from "@/hooks/useSearch";
 
-async function ProductList() {
-  const { data: products }: { data: Product[] } = await getProducts();
+function ProductList({ products }: { products: Product[] }) {
+  const { search, searchStr } = useSearch();
 
   return (
     <article className="border-r pr-4">
-      <h2 className="font-bold text-lg pb-8 cursor-pointer">Products</h2>
+      <SearchBox
+        placeholder="Search products"
+        search={search}
+        value={searchStr}
+      />
       <ul className="flex flex-col gap-8">
-        {products.map((product) => (
-          <ProductItem product={product} key={product.id} />
-        ))}
+        {products
+          .filter((product) =>
+            product.title.toLocaleLowerCase().includes(searchStr)
+          )
+          .map((product) => (
+            <ProductItem product={product} key={product.id} />
+          ))}
       </ul>
     </article>
   );

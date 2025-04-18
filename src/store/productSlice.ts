@@ -17,7 +17,13 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action: PayloadAction<Product>) => {
-      state.selectedProducts = [...state.selectedProducts, action.payload];
+      const foundItem = state.selectedProducts.find(
+        (selectedProduct) => selectedProduct.id === action.payload.id
+      );
+
+      if (!foundItem) {
+        state.selectedProducts = [...state.selectedProducts, action.payload];
+      }
     },
     removeProduct: (state, action: PayloadAction<number>) => {
       state.selectedProducts = state.selectedProducts.filter(

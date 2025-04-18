@@ -1,20 +1,25 @@
-import { getUsers } from "@/services/userService";
+"use client";
+
 import { User } from "@/types/user.types";
 import Link from "next/link";
 import React from "react";
+import SearchBox from "../ui/SearchBox";
+import { useSearch } from "@/hooks/useSearch";
 
-async function UsersList() {
-  const { data: users }: { data: User[] } = await getUsers();
+function UsersList({ users }: { users: User[] }) {
+  const { search, searchStr } = useSearch();
 
   return (
-    <article className="border-r">
-      <h2 className="font-bold text-lg pb-8 cursor-pointer">Users</h2>
+    <article className="border-r pr-4">
+      <SearchBox placeholder="Search Users" search={search} />
       <ul className="flex flex-col gap-4">
-        {users.map((user) => (
-          <Link href={`/users/${user.id}`} key={user.id}>
-            <li className="cursor-pointer">{user.username}</li>
-          </Link>
-        ))}
+        {users
+          .filter((user) => user.username.includes(searchStr))
+          .map((user) => (
+            <Link href={`/users/${user.id}`} key={user.id}>
+              <li className="cursor-pointer">{user.username}</li>
+            </Link>
+          ))}
       </ul>
     </article>
   );
