@@ -18,7 +18,7 @@ function ProductItem({ product }: { product: Product }) {
       <Image
         src={product.image}
         width={128}
-        height={100}
+        height={150}
         alt="clothes picture"
         style={{ objectFit: "cover", backgroundColor: "transparent" }}
       />
@@ -38,7 +38,7 @@ function ProductItem({ product }: { product: Product }) {
             </div>
           </div>
         </div>
-        {/* <p className="overflow-hidden text-ellipsis">{product.description}</p> */}
+        <p className="overflow-hidden text-ellipsis">{product.description}</p>
       </div>
     </li>
   );
